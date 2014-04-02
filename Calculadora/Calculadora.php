@@ -1,22 +1,34 @@
 <?php
     include 'OperacaoMatematicaFactory.php';	
 	
-	$factory = new OperacaoMatematicaFactory($_POST['operacao']);
-	$operacao = $factory->Fabricar();
-	
-	$resultado = $operacao->Calcular($_POST['valor1'], $_POST['valor2']);
-	
-	echo '<html>';
+	if (isset($_REQUEST['btnCalcular']))
+	{
+		echo '<html>';
 		echo '<head>';
-			echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+		echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
 		echo '</head>';
 		echo '<body>';
-			echo '<h1>Resultado da operação</h1>';
-			echo '</br>';
-			echo $resultado;
-			echo '</br>';
-			echo '</br>';
-			echo '<a href="FormCalculadora.html">Voltar</a>';
+		echo '</br>';
+		echo '<a href="FormCalculadora.html">Voltar</a>';
+		
+		$valor1 = $_REQUEST['valor1'];
+		$valor2 = $_REQUEST['valor2'];
+		
+		if ($valor1 <= 0 || $valor2 <= 0) 
+		{			
+			echo '<p>Valores não preenchidos</p>';
+			return;
+		}
+		
+		$factory = new OperacaoMatematicaFactory($_REQUEST['operacao']);
+		$operacao = $factory->Fabricar();
+		
+		$resultado = $operacao->Calcular($valor1, $valor2);		
+		
+		echo '<h1>Resultado da operação</h1>';
+		echo $resultado;
+		echo '</br>';			
 		echo '<body>';
-	echo '</html>';
+		echo '</html>';
+	}	
 ?>
