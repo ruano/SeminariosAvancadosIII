@@ -1,0 +1,8 @@
+codigo=1,descricao=computador,valor=1500
+codigo=2,descricao=mouse,valor=40
+codigo=3,descricao=teclado,valor=20
+codigo=4,descricao=monitor,valor=400
+codigo=5,descricao=gabinete,valor=120
+codigo=6,descricao=notebook,valor=2000
+codigo=7,descricao=memoria,valor=300
+codigo=8,descricao=smartphone,valor=1200

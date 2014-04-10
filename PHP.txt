@@ -1,0 +1,3 @@
+. = concatenação de valores
++ = soma valores
+explode = mesmo que split
