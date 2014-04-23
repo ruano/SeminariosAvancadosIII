@@ -1,3 +1,7 @@
-. = concatenação de valores
+. = concatenaï¿½ï¿½o de valores
 + = soma valores
 explode = mesmo que split
+
+ $f = fopen('produtos.txt', 'a');
+ 
+ fwrite($f, $conteudo)
