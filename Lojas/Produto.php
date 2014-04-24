@@ -1,4 +1,12 @@
 <?
+	$mensagem = '';
+	$podeProsseguir = TRUE;
+	
+	$codigo = '';
+	$nome = '';
+	$valor = '';
+	$descricao = '';
+	
 	if (isset($_REQUEST['btnSalvar']))
 	{
 		$codigo = $_REQUEST['txtCodigo'];
@@ -7,8 +15,17 @@
 		$descricao = $_REQUEST['txtDescricao'];
 		
 		$conteudo = "\n"."codigo=".$codigo.","."nome=".$nome.","."descricao=".$descricao.","."valor=".$valor;
-		$file = fopen('produtos.txt', 'a');
-		fwrite($file, $conteudo);
+		
+		if ($codigo != '' && $nome != '' && $valor != '' && $descricao != '')
+		{
+			$file = fopen('produtos.txt', 'a');
+			fwrite($file, $conteudo);
+			$mensagem = 'Conteúdo gravado com sucesso!';
+		} else 
+		{
+			$podeProsseguir = FALSE;
+			$mensagem = 'Informações incompletas';	
+		}
 	}
 ?>
 
@@ -19,6 +36,7 @@
     </head>
     <body>
         <h1>Produtos</h1>
+        <p><?=$mensagem?></p>
         
         <table border="1">
         	<tr>
@@ -48,16 +66,16 @@
 									
 									switch ($arrColuna[0]) {
 										case 'codigo':
-											$codigo = $arrColuna[1];
+											$codigo = trim($arrColuna[1]);
 											break;
 										case 'nome':
-											$nome = $arrColuna[1];
+											$nome = trim($arrColuna[1]);
 											break;
 										case 'descricao':
-											$descricao = $arrColuna[1];
+											$descricao = trim($arrColuna[1]);
 											break;
 										case 'valor':
-											$valor = $arrColuna[1];
+											$valor = trim($arrColuna[1]);
 											break;										
 										default:											
 											break;
@@ -81,24 +99,21 @@
 								}			
 							}
 							fclose($f);								
-						} else {
-							if (isset($_REQUEST['acao']))
-							{
-								if ($_REQUEST['acao'] == 'novo') {
-									?>
-										<form>
-											<label>Código</label><br />
-											<input type="text" name="txtCodigo" value="" /><br />
-											<label>Nome</label><br />
-											<input type="text" name="txtNome" value="" /><br />
-											<label>Valor</label><br />
-											<input type="text" name="txtValor" value="" /><br />
-											<label>Descrição</label><br />
-											<textarea rows="4" cols="30" name="txtDescricao"></textarea><br />
-											<input type="submit" name="btnSalvar" value="Salvar" />							
-										</form>
-									<?
-								}
+						} else if (isset($_REQUEST['acao'])) {							
+							if ($_REQUEST['acao'] == 'novo' || !$podeProsseguir) {
+								?>
+									<form>
+										<label>Código</label><br />
+										<input type="text" name="txtCodigo" value="" /><br />
+										<label>Nome</label><br />
+										<input type="text" name="txtNome" value="" /><br />
+										<label>Valor</label><br />
+										<input type="text" name="txtValor" value="" /><br />
+										<label>Descrição</label><br />
+										<textarea rows="4" cols="30" name="txtDescricao"></textarea><br />
+										<input type="submit" name="btnSalvar" value="Salvar" />							
+									</form>
+								<?
 							}
 						}
         			?>
