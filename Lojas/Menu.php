@@ -4,7 +4,7 @@
         <title>Menu</title>
     </head>
 <body>
-<?	
+<?		
 	@session_start();
 	
 	if (isset($_SESSION['sessao'])) 
@@ -18,8 +18,7 @@
 		$i = 1;
 		while (!feof($f)) 
 		{ 
-			$arrLinha = explode(',',fgets($f));	
-			
+			$arrLinha = explode(',',fgets($f));			
 			$codigo = '';
 			
 			for ($j = 0; $j < count($arrLinha); $j++)
