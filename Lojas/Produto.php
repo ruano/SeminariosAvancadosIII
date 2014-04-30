@@ -1,6 +1,5 @@
 <?
 	$mensagem = '';
-	$podeProsseguir = TRUE;
 	
 	$codigo = '';
 	$nome = '';
@@ -23,7 +22,6 @@
 			$mensagem = 'Conteúdo gravado com sucesso!';
 		} else 
 		{
-			$podeProsseguir = FALSE;
 			$mensagem = 'Informações incompletas';	
 		}
 	}
@@ -55,10 +53,10 @@
 							{ 
 								$arrLinha = explode(',',fgets($f));	
 								
-								$codigo = '';
-								$nome = '';
-								$descricao = '';
-								$valor = '';
+								// $codigo = '';
+								// $nome = '';
+								// $descricao = '';
+								// $valor = '';
 								
 								for ($i = 0; $i < count($arrLinha); $i++)
 								{
@@ -100,7 +98,7 @@
 							}
 							fclose($f);								
 						} else if (isset($_REQUEST['acao'])) {							
-							if ($_REQUEST['acao'] == 'novo' || !$podeProsseguir) {
+							if ($_REQUEST['acao'] == 'novo') {
 								?>
 									<form>
 										<label>Código</label><br />

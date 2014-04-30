@@ -9,24 +9,19 @@
 		$senhaArquivo = null;
 		
 		$arquivoCredenciais = fopen("credenciais.txt", "r");		
-		while (!feof($arquivoCredenciais)) 
-		{
-			$arrLinha = explode(',',fgets($arquivoCredenciais));
-			for ($i = 0; $i < count($arrLinha); $i++) 
-			{
-				$arrDados = explode('=', $arrLinha[$i]);
-				if ($arrDados[0] == 'usuario')
-					$usuarioArquivo = $arrDados[1];
-				else if ($arrDados[0] == 'senha')
-					$senhaArquivo = $arrDados[1];
-			}
-		}
+		$arrLinha = explode(',',fgets($arquivoCredenciais));
+				
+		$usuarioArquivo = explode('=', $arrLinha[0]);
+		$senhaArquivo = explode('=', $arrLinha[1]);
+				
+		$usuarioArquivo = $usuarioArquivo[1];
+		$senhaArquivo = $senhaArquivo[1];
 		
 		if ($usuarioTela != $usuarioArquivo || $senhaTela != $senhaArquivo) {
 			$mensagem = 'Usuario ou senha invalidos!';
 		} else {
 			@session_start();	
-			$_SESSION['sessao'] = $usuarioArquivo.$senhaArquivo;
+			$_SESSION['sessao'] = 'usuario='.$usuarioArquivo.'/senha='.$senhaArquivo;
 			header("location: Menu.php");
 		}	
 	}
