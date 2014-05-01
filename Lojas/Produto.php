@@ -1,4 +1,4 @@
-<?
+<?	
 	$mensagem = '';
 	
 	$codigo = '';
@@ -52,11 +52,6 @@
 							while (!feof($f)) 
 							{ 
 								$arrLinha = explode(',',fgets($f));	
-								
-								// $codigo = '';
-								// $nome = '';
-								// $descricao = '';
-								// $valor = '';
 								
 								for ($i = 0; $i < count($arrLinha); $i++)
 								{
