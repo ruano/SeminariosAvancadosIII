@@ -1,5 +1,13 @@
 ﻿<?
-	$msg = 'Nenhum item encontrado';
+	session_start();
+	$msg = 'Favor efetuar login no sistema!';
+	
+	$logado = FALSE;
+	if (isset($_SESSION['session_nome']) && isset($_SESSION['session_senha']))
+	{
+		$logado = TRUE;
+		$msg = '';
+	}
 	
 	setcookie("arrCookie[1]" , "11111"     , time()+3600*4 );
 	setcookie("arrCookie[2]" , "2222222"   , time()+3600*4 );
@@ -12,7 +20,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Documento sem título</title>
+		<title>Carrinho</title>
 	</head>
 	
 	<body>
@@ -24,31 +32,53 @@
 					<? include('menu_site.php') ?>
 				</td>
 			</tr>
+			
 			<tr>
-				<th>Contatos</th>
+				<th>Código</th>
 				<th>Produto</th>
 				<th>Valor</th>
 				<th>Remover</th>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>Produto A </td>
-				<td>1,00</td>
-				<td><a href="carrinho_remover.php???">X</a></td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Produto B </td>
-				<td>14,00</td>
-				<td><a href="?">X</a></td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>Produto C </td>
-				<td>2,00</td>
-				<td><a href="?">X</a></td>
-			</tr>
 			
+			<?
+				?>
+					<tr>
+						<td colspan="4">
+				<?
+				if ($logado)
+				{
+					$f = fopen("carrinho.txt", "r");
+					while(!feof($f)) { // Divide o arquivo em LINHAS
+						$arrLinha = explode(',',fgets($f));
+						$codigo = '';
+						$nome = '';
+						$valor = '';
+						for($i=0; $i<count($arrLinha); $i++){							
+							// Separa as chaves dos valores [codigo],[1]
+							$arrColuna = explode(':',$arrLinha[$i]);
+							if(trim($arrColuna[0])=="codigo")
+								$codigo = $arrColuna[1];
+							else if( trim($arrColuna[0]) =="nome")
+								$nome = $arrColuna[1];
+							elseif (trim($arrColuna[0] == "valor")) {
+								$valor = $arrColuna[1];
+							}
+						}
+						?>
+							<tr>							
+								<td><?=$codigo?></td>
+								<td><?=$nome?></td>
+								<td><?=$valor?></td>
+								<td><a href="carrinho_remover.php?codigo=<?=$codigo?>">X</a></br></td>
+							</tr>
+						<?
+					}
+				}
+				?>
+						</td>
+					</tr>
+				<?
+			?>			
 		</table>
 	</body>
 </html>

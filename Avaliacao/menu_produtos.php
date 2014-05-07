@@ -1,7 +1,7 @@
 ﻿
 
 <div style="background-color:#CCC; width:120px; margin-top:-20px;">
-	<a href="produtos.php?acao=novo">Novo Produto + </a>
+	<a href="produtos.php?acao=Novo">Novo Produto + </a>
 	<hr>
 	<?php
 	$f = fopen("produtos.txt", "r");
