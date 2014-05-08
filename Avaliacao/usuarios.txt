@@ -1,4 +1,4 @@
-nome:UsuárioA ,email:emaA@teste.com ,senha:123 
-nome:UsuárioB ,email:emaB@teste.com ,senha:123
-nome:UsuárioC ,email:emaCteste.com  ,senha:123
-nome:UsuárioD ,email:emaDteste.com  ,senha:123
+nome:UsuarioA ,email:emaA@teste.com ,senha:123 
+nome:UsuarioB ,email:emaB@teste.com ,senha:123
+nome:UsuarioC ,email:emaCteste.com  ,senha:123
+nome:UsuarioD ,email:emaDteste.com  ,senha:123

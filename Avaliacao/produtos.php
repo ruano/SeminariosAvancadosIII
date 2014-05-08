@@ -8,7 +8,7 @@
 	//$msg         = 'Verificar sessão, não mostrar os produtos caso não tenha';
 	$msg         = 'Favor efetuar login no sistema!';
 	
-	if (isset($_SESSION['session_nome']) && isset($_SESSION['session_senha']))
+	if (isset($_SESSION['session_nome']) && isset($_SESSION['session_senha']))	// Ruano Martinez Schulze - Questão 03
 	{
 		$msg = '';
 		if(isset($_REQUEST['cod'])){
@@ -74,17 +74,10 @@
 			$valorFinal  = trim($_REQUEST['txtValor']);
 			$descriFinal = trim($_REQUEST['txtDescricao']);
 			
-			if( setcookie("carrinhoNoCookie[".$codigoFinal."]" , $nomeFinal , time()+3600 ) ){
-				$fileName = 'carrinho.txt';
-				$conteudo = '';
-				if (filesize($fileName) > 0) {
-					$conteudo = "\n";
-				}
-				
-				$conteudo = $conteudo."codigo:".$codigoFinal.","."nome:".$nomeFinal.","."descricao:".$descriFinal.","."valor:".$valorFinal;			
-				$file = fopen('carrinho.txt', 'a');
-				fwrite($file, $conteudo);
-				$msg = 'Produto adicionado ao carrinho com sucesso!';	
+			if( setcookie("carrinhoNoCookie[".$codigoFinal."]", $codigoFinal, time()+3600 ) )
+			{					
+				$msg = 'Produto adicionado ao carrinho com sucesso!';
+				header("location: home.php");
 			}
 			
 			else 
