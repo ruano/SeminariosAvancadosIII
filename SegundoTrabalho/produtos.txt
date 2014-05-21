@@ -1,0 +1,9 @@
+codigo=1,nome=computador,descricao=computador bla bla,valor=1500
+codigo=2,nome=mouse,descricao=mouse bla bla,valor=40
+codigo=3,nome=teclado,descricao=teclado bla bla,valor=20
+codigo=4,nome=monitor,descricao=monitor bla bla,valor=400
+codigo=5,nome=gabinete,descricao=gabinete bla bla,valor=120
+codigo=6,nome=notebook,descricao=notebook bla bla,valor=2000
+codigo=7,nome=memoroa,descricao=memoria bla bla,valor=300
+codigo=8,nome=smartphone,descricao=smartphone bla bla,valor=1200
+codigo=9,nome=sada,descricao=sdfsds,valor=4500
