@@ -38,7 +38,7 @@
 			<form>
 				<label>Código</label>
 				<br />
-				<input type="text" name="txtCodigo" value="<?=$codigo?>"/>
+				<input type="text" name="txtCodigo" value="<?=$codigo?>" readonly/>
 				<br />
 				
 				<label>Nome</label>

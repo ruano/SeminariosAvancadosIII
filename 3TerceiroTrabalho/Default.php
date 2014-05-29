@@ -1,6 +1,6 @@
 <?php
     header('Content-Type: text/html; charset=utf-8');	
-	include 'Dao/UsuarioDao.php';
+	include 'Dao/AutenticacaoDao.php';
 	
 	session_start();
 	
