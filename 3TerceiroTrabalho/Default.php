@@ -11,19 +11,19 @@
 	{
 		if (!$autenticado) 
 		{		
-			$usuarioDao = new UsuarioDao();
+			$autenticacaoDao = new AutenticacaoDao();
 			
 			$usuario = $_REQUEST['txtUsuario'];
 			$senha = $_REQUEST['txtSenha'];
 			
-			$retorno = mysql_num_rows($usuarioDao->Select($usuario, $senha));
+			$retorno = mysql_num_rows($autenticacaoDao->Select($usuario, $senha));
 			
 			if ($retorno > 0)
 			{								
 				$_SESSION['usuario'] = $usuario;
 				$_SESSION['senha'] 	 = $senha;
 				$autenticado = TRUE;
-				header("location: MostradorProdutos.php");
+				header("location: ListadorProdutos.php");
 			} else 
 			{
 				$mensagem = 'Usuário ou senha inválidos!';

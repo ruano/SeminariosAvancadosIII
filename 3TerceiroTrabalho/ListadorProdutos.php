@@ -28,8 +28,13 @@
 		echo '</br>';
 		
 		?>
-			<a href="ProdutoView.php?acao=novo">Novo +</a>
-			<br />
+			<table border="1" cellspacing="5" cellpadding="5">
+				<tr>
+					<td><a href="ProdutoView.php?acao=novo">Novo Produto +</a></td>
+					<td><a href="ListadorUsuario.php">Visualizar Usuários</a></td>							
+				</tr>
+			</table>
+			
 			<br />
 			
 			<table border="1" cellspacing="5" cellpadding="5">

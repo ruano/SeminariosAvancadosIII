@@ -63,7 +63,7 @@
 				<br />
 				<br />
 				
-				<a href="MostradorProdutos.php">Voltar</a>				
+				<a href="ListadorProdutos.php">Voltar</a>				
 			</form>
 		<?
 	} else 

@@ -2,7 +2,7 @@
     header('Content-Type: text/html; charset=utf-8');
 	include 'Banco/ConexaoBanco.php';
 	
-	class UsuarioDao
+	class AutenticacaoDao
 	{
 		public function __construct()
 		{
@@ -22,6 +22,27 @@
 		public function Select($usuario, $senha)
 		{
 			$query = "SELECT * FROM AUTENTICACAO WHERE USUARIO = '".$usuario."' AND SENHA = "."'".$senha."'".";";
+			return mysql_query(utf8_decode($query));
+		}
+		
+		public function BuscarTodosUsuarios()
+		{
+			$query = "SELECT * FROM AUTENTICACAO";
+								
+			return mysql_query(utf8_decode($query));
+		}
+		
+		public function Update($codigo, $senha)
+		{
+			$query = "UPDATE AUTENTICACAO SET SENHA = '".$senha."' WHERE CODIGO = ".$codigo;
+								
+			return mysql_query(utf8_decode($query));
+		}
+		
+		public function Insert($usuario, $senha)
+		{
+			$query = "INSERT INTO AUTENTICACAO (USUARIO, SENHA) VALUES ('".$usuario."', '".$senha."');";
+								
 			return mysql_query(utf8_decode($query));
 		}
 	}

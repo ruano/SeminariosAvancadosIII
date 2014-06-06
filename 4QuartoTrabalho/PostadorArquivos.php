@@ -8,9 +8,9 @@
 		$nomeOriginal = $_FILES['arquivo']['name'];
 		
 		$arrayNome = explode('.', $nomeOriginal);
-		$extensaoArquiboOriginal = end($arrayNome);
+		$extensaoArquivoOriginal = end($arrayNome);
 		
-		if (in_array($extensaoArquiboOriginal, array("jpg","txt",",doc"))) 		
+		if (in_array($extensaoArquivoOriginal, array("jpg","txt",",doc"))) 		
 		{
 			if (move_uploaded_file($nomeTemp, $diretorio.$nomeOriginal))
 				echo 'Arquivo salvo com sucesso!';
