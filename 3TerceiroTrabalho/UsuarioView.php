@@ -5,7 +5,9 @@
 	
 	if (isset($_SESSION['usuario']) && isset($_SESSION['senha']))
 	{
-		include 'Dao/AutenticacaoDao.php';		
+		include 'Dao/AutenticacaoDao.php';
+		
+		$imagem = 'Imagens/semfoto.jpg';
 				
 		$codigo = '';
 		$usuario = '';
@@ -15,14 +17,41 @@
 		
 		if (isset($_POST['btnSalvar']))
 		{
-			$autenticacaoDao = new AutenticacaoDao();
+			$autenticacaoDao = new AutenticacaoDao();			
 			
-			if ($acao == 'novo')
-				$retorno = $autenticacaoDao->Insert($_POST['txtUsuario'], $_POST['txtSenha']);
-			else						
-				$retorno = $autenticacaoDao->Update($_POST['txtCodigo'], $_POST['txtSenha']);			
+			$nomeTemp = $_FILES['foto']['tmp_name'];
+			$nomeOriginal = $_FILES['foto']['name'];
 			
-			$msg = $retorno ? 'Operação realizada com sucesso!' : 'Ocorreu um erro ao realizar a operação!'.mysql_error();  
+			$arrayNomeArquivo = explode('.', $nomeOriginal);			
+			$extensaoArquivoOriginal = end($arrayNomeArquivo);			
+			
+			$msg = '';
+			
+			if (in_array($extensaoArquivoOriginal, array("jpg")) || $extensaoArquivoOriginal == '') 		
+			{
+				if ($acao == 'novo')
+				{
+					$retorno = $autenticacaoDao->Insert($_POST['txtUsuario'], $_POST['txtSenha']);
+					$pk = mysql_insert_id();
+					if (file_exists('Imagens/'.$pk.'.jpg'))
+						unlink('Imagens/'.$pk.'.jpg');
+					
+					move_uploaded_file($nomeTemp, 'Imagens/'.$pk.'.jpg');
+				}					
+				else
+				{
+					$retorno = $autenticacaoDao->Update($_POST['txtCodigo'], $_POST['txtSenha']);
+					if (file_exists('Imagens/'.$_POST['txtCodigo'].'.jpg'))
+						if (isset($_POST['foto']))
+							unlink('Imagens/'.$_POST['txtCodigo'].'.jpg');
+						
+					move_uploaded_file($nomeTemp, 'Imagens/'.$_POST['txtCodigo'].'.jpg');
+				}													
+				
+				$msg = $retorno ? 'Operação realizada com sucesso!' : 'Ocorreu um erro ao realizar a operação!'.mysql_error();			
+			
+			} else
+				$msg = 'Extensão do arquivo inválida!';			  
 			
 			echo $msg;
 		}		
@@ -31,6 +60,8 @@
 			$codigo = $_REQUEST['codigo'];
 			$usuario = $_REQUEST['usuario'];
 			$senha = $_REQUEST['senha'];
+			
+			$imagem = file_exists('Imagens/'.$codigo.'.jpg') ? 'Imagens/'.$codigo.'.jpg' : 'Imagens/semfoto.jpg';			
 		}
 		
 		?>
@@ -43,16 +74,21 @@
 					
 					<label>Usuário</label>
 					<br />
-					<input type="text" name="txtUsuario" value="<?=$usuario?>"/>
+					<input type="text" name="txtUsuario" value="<?=$usuario?>"/>									
 					<br />
 					
 					<label>Senha</label>
 					<br />
 					<input type="password" name="txtSenha" value="<?=$senha?>"/>
 					<br />
-					<br />
 					
 					<input type="hidden" name="acao" value="<?=$acao?>" />
+					<br />
+					<input type="file" name="foto" />
+					<br />
+					<img src="<?=$imagem?>" />
+					<br />
+					<br />	
 					
 					<input type="submit" name="btnSalvar" value="Salvar" />
 					<br />
