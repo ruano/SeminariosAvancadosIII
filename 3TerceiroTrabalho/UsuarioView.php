@@ -45,12 +45,13 @@
 				}					
 				else
 				{
-					$retorno = $autenticacaoDao->Update($_POST['txtCodigo'], $_POST['txtSenha']);
-					if (file_exists($diretorioImagens.$_POST['txtCodigo'].$extensaoValida))
+					$codigo = $_POST['txtCodigo'];
+					$retorno = $autenticacaoDao->Update($codigo, $_POST['txtSenha']);
+					if (file_exists($diretorioImagens.$codigo.$extensaoValida))
 						if (isset($_POST['foto']))
-							unlink($diretorioImagens.$_POST['txtCodigo'].$extensaoValida);
+							unlink($diretorioImagens.$codigo.$extensaoValida);
 						
-					move_uploaded_file($nomeTemp, $diretorioImagens.$_POST['txtCodigo'].$extensaoValida);
+					move_uploaded_file($nomeTemp, $diretorioImagens.$codigo.$extensaoValida);
 				}													
 				
 				$msg = $retorno ? 'Operação realizada com sucesso!' : 'Ocorreu um erro ao realizar a operação!'.mysql_error();			
