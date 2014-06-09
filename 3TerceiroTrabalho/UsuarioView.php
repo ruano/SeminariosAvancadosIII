@@ -7,13 +7,18 @@
 	{
 		include 'Dao/AutenticacaoDao.php';
 		
-		$imagem = 'Imagens/semfoto.jpg';
+		$imagemPadrao = 'Imagens/semfoto.jpg';
+		$diretorioImagens = 'Imagens/';
+		$extensaoValida = '.jpg';
+		
+		$acao = '';
 				
 		$codigo = '';
 		$usuario = '';
 		$senha = '';
 		
-		$acao = $_REQUEST['acao'] == 'novo' ? 'novo' : 'editar';
+		if (isset($_REQUEST['acao']))
+			$acao = $_REQUEST['acao'] == 'novo' ? 'novo' : 'editar';			
 		
 		if (isset($_POST['btnSalvar']))
 		{
@@ -30,22 +35,22 @@
 			if (in_array($extensaoArquivoOriginal, array("jpg")) || $extensaoArquivoOriginal == '') 		
 			{
 				if ($acao == 'novo')
-				{
+				{					
 					$retorno = $autenticacaoDao->Insert($_POST['txtUsuario'], $_POST['txtSenha']);
 					$pk = mysql_insert_id();
-					if (file_exists('Imagens/'.$pk.'.jpg'))
-						unlink('Imagens/'.$pk.'.jpg');
+					if (file_exists($diretorioImagens.$pk.$extensaoValida))
+						unlink($diretorioImagens.$pk.$extensaoValida);
 					
-					move_uploaded_file($nomeTemp, 'Imagens/'.$pk.'.jpg');
+					move_uploaded_file($nomeTemp, $diretorioImagens.$pk.$extensaoValida);
 				}					
 				else
 				{
 					$retorno = $autenticacaoDao->Update($_POST['txtCodigo'], $_POST['txtSenha']);
-					if (file_exists('Imagens/'.$_POST['txtCodigo'].'.jpg'))
+					if (file_exists($diretorioImagens.$_POST['txtCodigo'].$extensaoValida))
 						if (isset($_POST['foto']))
-							unlink('Imagens/'.$_POST['txtCodigo'].'.jpg');
+							unlink($diretorioImagens.$_POST['txtCodigo'].$extensaoValida);
 						
-					move_uploaded_file($nomeTemp, 'Imagens/'.$_POST['txtCodigo'].'.jpg');
+					move_uploaded_file($nomeTemp, $diretorioImagens.$_POST['txtCodigo'].$extensaoValida);
 				}													
 				
 				$msg = $retorno ? 'Operação realizada com sucesso!' : 'Ocorreu um erro ao realizar a operação!'.mysql_error();			
@@ -59,9 +64,9 @@
 		{
 			$codigo = $_REQUEST['codigo'];
 			$usuario = $_REQUEST['usuario'];
-			$senha = $_REQUEST['senha'];
+			$senha = base64_decode($_REQUEST['senha']);
 			
-			$imagem = file_exists('Imagens/'.$codigo.'.jpg') ? 'Imagens/'.$codigo.'.jpg' : 'Imagens/semfoto.jpg';			
+			$imagemPadrao = file_exists($diretorioImagens.$codigo.$extensaoValida) ? $diretorioImagens.$codigo.$extensaoValida : $imagemPadrao;			
 		}
 		
 		?>
@@ -86,8 +91,9 @@
 					<br />
 					<input type="file" name="foto" />
 					<br />
-					<img src="<?=$imagem?>" />
-					<br />
+					<img src="<?=$imagemPadrao?>" />
+					<a href="UsuarioView.php?codigo="<?=$codigo?>>Remover imagem</a>				
+					<br />					
 					<br />	
 					
 					<input type="submit" name="btnSalvar" value="Salvar" />
