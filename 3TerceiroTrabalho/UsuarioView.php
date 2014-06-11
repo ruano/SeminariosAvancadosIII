@@ -38,6 +38,7 @@
 				{					
 					$retorno = $autenticacaoDao->Insert($_POST['txtUsuario'], $_POST['txtSenha']);
 					$pk = mysql_insert_id();
+					
 					if (file_exists($diretorioImagens.$pk.$extensaoValida))
 						unlink($diretorioImagens.$pk.$extensaoValida);
 					
@@ -47,6 +48,7 @@
 				{
 					$codigo = $_POST['txtCodigo'];
 					$retorno = $autenticacaoDao->Update($codigo, $_POST['txtSenha']);
+					
 					if (file_exists($diretorioImagens.$codigo.$extensaoValida))
 						if (isset($_POST['foto']))
 							unlink($diretorioImagens.$codigo.$extensaoValida);

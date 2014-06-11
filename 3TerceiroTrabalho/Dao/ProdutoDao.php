@@ -8,6 +8,12 @@
 		{
 		}
 		
+		public function Select()
+		{
+			$query = "SELECT * FROM PRODUTO;";
+			return mysql_query(utf8_decode($query));
+		}
+		
 		public function Insert($nome, $descricao, $valor)
 		{
 			$query = "INSERT INTO PRODUTO (NOME, DESCRICAO, VALOR) VALUES ('".$nome."','".$descricao."',".$valor.");";

@@ -24,7 +24,7 @@
 			
 			$msg = $retorno ? 'Operação realizada com sucesso!' : 'Ocorreu um erro ao realizar a operação!'.mysql_error();		
 			echo $msg;
-		} else // Veio da página MostradorProdutos.php
+		} else // Veio da página ListadorProdutos.php
 		{
 			if ($acao == 'editar')
 			{	$codigo = $_REQUEST['codigo'];

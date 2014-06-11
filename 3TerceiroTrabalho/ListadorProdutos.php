@@ -8,11 +8,12 @@
 		include 'Banco/ConexaoBanco.php';
 		include 'Dao/ProdutoDao.php';
 		
+		$produtoDao = new ProdutoDao();
+		
 		if (isset($_REQUEST['acao']))
 		{
 			if ($_REQUEST['acao'] == 'deletar')
-			{
-				$produtoDao = new ProdutoDao();
+			{				
 				$codigo = $_REQUEST['codigo'];	
 				$retorno = $produtoDao->Delete($codigo);
 				
@@ -23,8 +24,7 @@
 			}
 		}
 		
-		$query = "SELECT * FROM PRODUTO;";
-		$resposta = mysql_query($query);
+		$resposta = $produtoDao->Select();
 		echo '</br>';
 		
 		?>
@@ -56,7 +56,7 @@
 					<td><?=$linha->DESCRICAO?></td>
 					<td><?=$linha->VALOR?></td>
 					<td><a href="ProdutoView.php?codigo=<?=$linha->CODIGO?>&nome=<?=$linha->NOME?>&descricao=<?=$linha->DESCRICAO?>&valor=<?=$linha->VALOR?>&acao=editar">Editar</a></td>
-					<td align="center"><a href="MostradorProdutos.php?codigo=<?=$linha->CODIGO?>&acao=deletar">X</a></td>	
+					<td align="center"><a href="ListadorProdutos.php?codigo=<?=$linha->CODIGO?>&acao=deletar">X</a></td>	
 				</tr>
 			<?
 		}
