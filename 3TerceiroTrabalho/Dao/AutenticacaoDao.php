@@ -32,9 +32,9 @@
 			return mysql_query(utf8_decode($query));
 		}
 		
-		public function Update($codigo, $senha)
+		public function Update($codigo, $usuario, $senha)
 		{
-			$query = "UPDATE AUTENTICACAO SET SENHA = '".$senha."' WHERE CODIGO = ".$codigo;
+			$query = "UPDATE AUTENTICACAO SET USUARIO = '".$usuario."' , SENHA = '".$senha."' WHERE CODIGO = ".$codigo.";";
 								
 			return mysql_query(utf8_decode($query));
 		}

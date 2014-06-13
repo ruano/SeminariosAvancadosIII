@@ -47,7 +47,7 @@
 				else
 				{
 					$codigo = $_POST['txtCodigo'];
-					$retorno = $autenticacaoDao->Update($codigo, $_POST['txtSenha']);
+					$retorno = $autenticacaoDao->Update($codigo, $_POST['txtUsuario'], $_POST['txtSenha']);
 					
 					if (file_exists($diretorioImagens.$codigo.$extensaoValida))
 						if (isset($_POST['foto']))
@@ -94,8 +94,7 @@
 					<br />
 					<input type="file" name="foto" />
 					<br />
-					<img src="<?=$imagemPadrao?>" />
-					<a href="UsuarioView.php?codigo="<?=$codigo?>>Remover imagem</a>				
+					<img src="<?=$imagemPadrao?>" />		
 					<br />					
 					<br />	
 					
